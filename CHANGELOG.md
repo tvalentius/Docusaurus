@@ -1,16 +1,75 @@
 # Changelog
+
 All notable changes to this project will be documented in this file.
 
-The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
-and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
+The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
+## [1.1.2] - 2018-05-21
+
+Another HOTFIX release. One of our third-party dependencies, `tree-node-cli` didn't support Node 10+. The package has been fixed and we have updated to use the new version of that package.
+
+## [1.1.1] - 2018-05-21
+
+HOTFIX release. Dependency bug found.
+
+### Fixed/Changed
+
+- `opn` needs to be [installed](https://github.com/facebook/Docusaurus/commit/923356e312687cae107db2ec36aaf52f7f03028a), not just in dev dependencies.
+
+## [1.1.0] - 2018-05-20
+
+This is our first major point release. There are three primary reasons for this:
+
+- One of our most requested issues has been implemented - [Live Reload](https://github.com/facebook/Docusaurus/commit/f9a09072e35e274cf4c13b67d228ece3b7722d47).
+- We [migrated](https://github.com/facebook/Docusaurus/commit/25cf8bb786abf835e4275e2a9975b33bd5fb2b18) to React 16 support (which wasn't as difficult as initially thought :) )
+- The blog now allows for [Facebook-based comments](https://github.com/facebook/Docusaurus/commit/aae106c018667a3787726f7744ce14ccb2b68ef1).
+
+There are a lot of other fixes and enhancements as well. Also, we have five new [users](https://docusaurus.io/en/users.html) of Docusaurus within this release as well. Thank you to [WarriorJS](https://warrior.js.org/), [Bemuse](https://bemuse.ninja/project/), [Pyre-Check](https://pyre-check.org/), [Draft.js](https://draftjs.org/) and [CaptainDuckDuck](https://captainduckduck.com/) for using Docusaurus.
+
+There are also various documentation fixes as well.
+
+We think this is a good release.
+
+Thank you to the following contributors who helped with this release:
+
+- @yangshun
+- @amyrlam
+- @gedeagas
+- @ahmadalfy
+- @endiliey
+- @zpao
+- @NoamELB
+- @sujono91
+
+### Breaking Changes
+
+- For blog posts, [`authorImage` is now `authorImageURL`](https://github.com/facebook/Docusaurus/commit/873a2427f91314fe9f8590cc782c01570f264c6d).
+
+### Added
+
+- [Live Reload](https://github.com/facebook/Docusaurus/commit/f9a09072e35e274cf4c13b67d228ece3b7722d47) allows you to make changes to your documentation without having to manually refresh your site.
+- Running `yarn start` or `npm start` automatically [opens a browser](https://github.com/facebook/Docusaurus/commit/1a6f2fc51c1e1e9fa0e21fe5026a11681435aef3) to the correct `localhost` page.
+- There is now a build option, `--skip-image-compression`, to [compress your images](https://github.com/facebook/Docusaurus/commit/ab6bab9f8d02c3cb402947ea5fd1c9d619478b54).
+- You can now add Twitter and Facebook social buttons to the [footer](https://github.com/facebook/Docusaurus/commit/f8521c2fe1469c549d5f363517d21117358f8862).
+- The blog now allows for [Facebook-based comments](https://github.com/facebook/Docusaurus/commit/aae106c018667a3787726f7744ce14ccb2b68ef1).
+- A [warning](https://github.com/facebook/Docusaurus/commit/436a3d04d213360b71fc6edc45983b192def0f0b) is now shown if you use versioning without a `version.js` file.
+
+### Fixed/Changed
+
+- Various UI fixes
+- Directory tree [printed](https://github.com/facebook/Docusaurus/commit/1796764b1cc56f9c2e46e937a7aa2ffd417b267c) during `docusaurus-init`.
+
+### Removed
+
+- [`authorImage`](https://github.com/facebook/Docusaurus/commit/873a2427f91314fe9f8590cc782c01570f264c6d)
 
 ## [1.0.15] - 2018-05-06
 
 This release has a lot of commits, including bug fixes, documentation updates, as well as a bit of new functionality. A new [blog post](https://docusaurus.io/blog/2018/04/30/How-I-Converted-Profilo-To-Docusaurus.html) from @caabernathy about how easy it is to create a Docusaurus site, a lot of Windows fixes, the ability to specify the default version shown, and more.
 
-Thank you to the following contributors who have helped with this releae:
+Thank you to the following contributors who have helped with this release:
 
 - @yangshun
 - @amyrlam
@@ -365,7 +424,10 @@ N/A
   - Blog
   - Documentation
 
-[Unreleased]: https://github.com/facebook/Docusaurus/compare/v1.0.15...HEAD
+[Unreleased]: https://github.com/facebook/Docusaurus/compare/v1.1.2...HEAD
+[1.1.2]: https://github.com/facebook/Docusaurus/compare/v1.1.1...v1.1.2
+[1.1.1]: https://github.com/facebook/Docusaurus/compare/v1.1.0...v1.1.1
+[1.1.0]: https://github.com/facebook/Docusaurus/compare/v1.0.15...v1.1.0
 [1.0.14]: https://github.com/facebook/Docusaurus/compare/v1.0.14...v1.0.15
 [1.0.14]: https://github.com/facebook/Docusaurus/compare/v1.0.13...v1.0.14
 [1.0.13]: https://github.com/facebook/Docusaurus/compare/v1.0.12...v1.0.13

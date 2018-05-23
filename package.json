@@ -1,7 +1,7 @@
 {
   "name": "docusaurus",
   "description": "Easy to Maintain Open Source Documentation Websites",
-  "version": "1.0.15",
+  "version": "1.1.2",
   "license": "MIT",
   "keywords": [
     "documentation",
@@ -27,7 +27,7 @@
     "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-polyfill": "^6.26.0",
-    "babel-preset-env": "^1.6.0",
+    "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",
     "babel-register": "^6.24.1",
     "babel-traverse": "^6.25.0",
@@ -42,6 +42,7 @@
     "express": "^4.15.3",
     "feed": "^1.1.0",
     "fs-extra": "^5.0.0",
+    "gaze": "^1.1.2",
     "glob": "^7.1.2",
     "highlight.js": "^9.12.0",
     "imagemin": "^5.3.1",
@@ -51,13 +52,16 @@
     "imagemin-svgo": "^6.0.0",
     "markdown-toc": "^1.2.0",
     "mkdirp": "^0.5.1",
+    "opn": "^5.3.0",
     "react": "^16.3.2",
     "react-dom": "^16.3.2",
     "remarkable": "^1.7.1",
-    "request": "^2.81.0",
+    "request": "^2.87.0",
     "shelljs": "^0.7.8",
     "sitemap": "^1.13.0",
-    "tcp-port-used": "^0.1.2"
+    "tcp-port-used": "^0.1.2",
+    "tiny-lr": "^1.1.1",
+    "tree-node-cli": "^1.2.0"
   },
   "bin": {
     "docusaurus-start": "./lib/start-server.js",
@@ -74,7 +78,6 @@
     "front-matter": "^2.3.0",
     "glob-promise": "^3.3.0",
     "jest": "^21.2.1",
-    "opn": "^5.3.0",
     "prettier": "^1.9.1",
     "rimraf": "^2.6.2"
   }

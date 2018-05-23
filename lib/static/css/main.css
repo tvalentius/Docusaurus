@@ -1826,15 +1826,17 @@ footer .copyright {
   text-align: center;
 }
 
-.entry-share {
+footer .social {
+  padding: 5px 0;
+}
+
+.blogSocialSection {
   padding: 36px 0;
   display: block;
 }
 
-@media screen and (max-width: 735px) {
-  .entry-share {
-    display: none;
-  }
+.blogSocialSection .blogSocialSectionItem {
+  padding-bottom: 5px;
 }
 
 @media screen and (min-width: 736px) {
@@ -1850,11 +1852,16 @@ footer .copyright {
     display: flex;
     flex-direction: column;
     padding-top: 50px;
+    min-height: calc(100vh - 50px);
   }
   .docMainWrapper {
-    flex-grow: 1;
     width: 100%;
     box-sizing: border-box;
+  }
+  
+  /* those make the footer sticky and work even in IE 11 */
+  .navPusher > :first-child {
+    flex-grow: 1;
   }
   footer.nav-footer {
     flex-shrink: 0;

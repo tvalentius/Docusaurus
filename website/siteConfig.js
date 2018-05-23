@@ -46,10 +46,19 @@ const siteConfig = {
   highlight: {
     theme: 'atom-one-dark',
   },
-  scripts: ['https://buttons.github.io/buttons.js'],
+  scripts: [
+    'https://buttons.github.io/buttons.js',
+    'https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js',
+    '/js/code-blocks-buttons.js',
+  ],
+  stylesheets: [
+    '/css/code-blocks-buttons.css',
+  ],
   gaTrackingId: 'UA-44373548-31',
-  facebookAppId: '1615782811974223',
+  facebookAppId: '199138890728411',
+  facebookComments: true,
   twitter: 'true',
+  twitterUsername: 'docusaurus',
   ogImage: 'img/docusaurus.png',
   twitterImage: 'img/docusaurus.png',
   onPageNav: 'separate',
