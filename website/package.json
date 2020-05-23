@@ -1,18 +1,33 @@
 {
-	"scripts": {
-		"start": "node ../lib/start-server.js",
-		"start-debug": "node  --inspect ../lib/start-server.js",
-		"build": "node ../lib/build-files.js",
-		"publish-gh-pages": "node ../lib/publish-gh-pages.js",
-		"examples": "node ../lib/copy-examples.js",
-		"write-translations": "node ../lib/write-translations.js",
-		"version": "node ../lib/version.js",
-		"rename-version": "node ../lib/rename-version.js",
-		"crowdin-upload": "crowdin --config ../crowdin.yaml upload sources --auto-update -b master",
-		"crowdin-download": "crowdin --config ../crowdin.yaml download -b master"
-	},
-	"dependencies": {
-		"async": "^2.5.0",
-		"docusaurus": "../../Docusaurus/"
-	}
+  "name": "docusaurus-2-website",
+  "version": "2.0.0-alpha.55",
+  "private": true,
+  "scripts": {
+    "start": "docusaurus start",
+    "build": "docusaurus build",
+    "swizzle": "docusaurus swizzle",
+    "deploy": "docusaurus deploy"
+  },
+  "dependencies": {
+    "@docusaurus/core": "^2.0.0-alpha.55",
+    "@docusaurus/plugin-ideal-image": "^2.0.0-alpha.55",
+    "@docusaurus/preset-classic": "^2.0.0-alpha.55",
+    "classnames": "^2.2.6",
+    "color": "^3.1.2",
+    "npm-to-yarn": "^1.0.0-2",
+    "react": "^16.8.4",
+    "react-dom": "^16.8.4"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
 }

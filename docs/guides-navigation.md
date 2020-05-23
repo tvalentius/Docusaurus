@@ -5,15 +5,13 @@ title: Navigation and Sidebars
 
 ## Referencing Site Documents
 
-If you want to reference another document in your `docs` folder (or the location you set via the [optional `customDocsPath`](https://docusaurus.io/docs/en/site-config.html#optional-fields) path site configuration option), then you just use the name of the document you want to reference.
+If you want to reference another document in your `docs` directory (or the location you set via the [optional `customDocsPath`](https://docusaurus.io/docs/en/site-config.html#optional-fields) path site configuration option), then you just use the name of the document you want to reference.
 
 For example, if you are in `doc2.md` and you want to reference `doc1.md`:
 
 ```md
 I am referencing a [document](doc1.md).
 ```
-
-> Docusaurus currently does not support documents in nested folders; only in a flat folder structure. We are looking into adding support for nested folders.
 
 ## How Documents are Linked
 
@@ -24,11 +22,9 @@ For example, creating an empty file such as `docs/getting-started.md` will enabl
 Suppose you add this to your document:
 
 ```yaml
----
 id: intro
 title: Getting Started
 ---
-
 My new content here..
 ```
 
@@ -40,7 +36,7 @@ If you set the `id` field in the markdown header of the file, the doc will then 
 
 Many times, you will want to add a document to a sidebar that will be associated with one of the headers in the top navigation bar of the website. The most common sidebar, and the one that comes installed when Docusaurus is initialized, is the `docs` sidebar.
 
-> "docs" is just a name. It has no inherit meaning. You can change it as you wish.
+> "docs" is just a name. It has no inherent meaning. You can change it as you wish.
 
 You configure the contents of the sidebar, and the order of its documents, in the `website/sidebars.json` file.
 
@@ -74,6 +70,74 @@ Or you can create a new category within the sidebar:
 }
 ```
 
+However, for a document located in a docs subdirectory like below:
+
+```bash
+docs
+└── dir1
+    └── getting-started.md
+```
+
+You should provide `directory/id` instead of `id` in `sidebars.json`.
+
+```js
+{
+  "docs": {
+    "My New Sidebar Category": [
+      "dir1/getting-started"
+    ],
+    ...
+  },
+  ...
+}
+```
+
+### Adding Subcategories
+
+It is possible to add subcategories to a sidebar. Instead of using IDs as the contents of the category array like the previous examples, you can pass an object where the keys will be the subcategory name and the value an array of IDs for that subcategory.
+
+```js
+{
+  "docs": {
+    "My Example Category": [
+      "examples",
+      {
+        "type": "subcategory",
+        "label": "My Example Subcategory",
+        "ids": [
+          "my-examples",
+          ...
+        ]
+      },
+      {
+        "type": "subcategory",
+        "label": "My Next Subcategory",
+        "ids": [
+          "some-other-examples"
+        ]
+      },
+      "even-more-examples",
+      ...
+    ],
+    ...
+  }
+}
+
+/*
+The above will generate:
+
+- My Example Category
+  - examples
+  - My Example Subcategory
+    - my-examples
+    ...
+  - My Next Subcategory
+    - some-other-examples
+  - even-more-examples
+  ...
+*/
+```
+
 ### Adding New Sidebars
 
 You can also put a document in a new sidebar. In the following example, we are creating an `examples-sidebar` sidebar within `sidebars.json` that has a category called `My Example Category` containing a document with an `id` of `my-examples`.
@@ -94,7 +158,7 @@ It is important to note that until you [add a document from the `"examples-sideb
 
 ## Additions to the Site Navigation Bar
 
-To expose sidebars, you will add clickable labels to the site navigation bar at the top of the website. You can add documents, pages and external links.
+To expose sidebars, you will add click-able labels to the site navigation bar at the top of the website. You can add documents, pages and external links.
 
 ### Adding Documents
 
@@ -138,7 +202,7 @@ Custom links can be added to the site navigation bar with the following entry in
 {
   headerLinks: [
     ...
-    { href: 'https://github.com/facebook/Docusaurus', label: 'GitHub' },
+    { href: 'https://github.com/facebook/docusaurus', label: 'GitHub' },
     ...
   ],
   ...
@@ -170,7 +234,7 @@ If search is enabled on your site, your search bar will appear to the right of y
 
 ### Languages Dropdown
 
-If translations is enabled on your site, the language dropdown will appear to the right of your links (and to the left of the search bar, if search is enabled). If you want to put the language selection drop down between links in the header, add a languages entry in the `headerLinks` config array:
+If translations are enabled on your site, the language dropdown will appear to the right of your links (and to the left of the search bar, if search is enabled). If you want to put the language selection drop down between links in the header, add a languages entry in the `headerLinks` config array:
 
 ```js
 {
@@ -191,14 +255,14 @@ The links in the top navigation bar get `siteNavItemActive` and `siteNavGroupAct
 
 The `siteNavGroupActive` class will be added to these links:
 
-* `doc` links that belong to the same sidebar as the currently displayed document
-* The blog link when a blog post, or the blog listing page is being displayed
+- `doc` links that belong to the same sidebar as the currently displayed document
+- The blog link when a blog post or the blog listing page is being displayed
 
 These are two separate class names so you can have the active styles applied to either exact matches only or a bit more broadly for docs that belong together. If you don't want to make this distinction you can add both classes to the same CSS rule.
 
 ## Secondary On-Page Navigation
 
-We support secondary on-page navigation so you can more easily see the topics associated with a given document. To enable this feature, you need to add the `onPageNav` site configuration [option](api-site-config.md#optional-fields) to your `siteConfig.js`.
+We support secondary on-page navigation so you can quickly see the topics associated with a given document. To enable this feature, you need to add the `onPageNav` site configuration [option](api-site-config.md#optional-fields) to your `siteConfig.js`.
 
 ```js
 {
@@ -208,3 +272,14 @@ We support secondary on-page navigation so you can more easily see the topics as
 ```
 
 Currently, `'separate'` is the only option available for this field. This provides a separate navigation on the right side of the page.
+
+## Collapsible Categories
+
+For sites with a sizable amount of content, we support the option to expand/collapse the links and subcategories under categories. To enable this feature, set the `docsSideNavCollapsible` site configuration [option](api-site-config.md#optional-fields) in `siteConfig.js` to true.
+
+```js
+{
+  docsSideNavCollapsible: true,
+  ...
+}
+```

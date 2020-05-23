@@ -30,12 +30,8 @@ Use the following code in VSCode to enable breakpoints. Please ensure you have a
       "type": "node",
       "request": "launch",
       "cwd": "${workspaceFolder}/website",
-      "runtimeExecutable": "npm",
-      "runtimeArgs": [
-        "run",
-        "start-debug"
-      ],
-      "port": 9229
+      "program": "${workspaceFolder}/website/node_modules/@docusaurus/core/bin/docusaurus.js",
+      "args": ["start"]
     }
   ]
 }
@@ -47,4 +43,4 @@ Feel free to contribute debug instructions for other IDEs
 
 ### Observing changes
 
-Now that the server is running, you can make changes to the core Docusaurus code and docs to see the effects on the Docusaurus site. LiveReload will reflect changes to the local site in your browser, usually running at http://localhost:3000
+Now that the server is running, you can make changes to the core Docusaurus code and docs to see the effects on the Docusaurus site. LiveReload will reflect changes to the local site in your browser, usually running at http://localhost:3000.

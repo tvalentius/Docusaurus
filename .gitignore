@@ -1,18 +1,24 @@
 .DS_Store
 .vscode
+.idea
+*.iml
 *.code-workspace
+.changelog
 
 node_modules
 
-lib/core/metadata.js
-lib/core/MetadataBlog.js
-lib/pages/
-
-website/build/
-website/i18n/*
-website/node_modules
-website/package-lock.json
-website/translated_docs
-website/yarn.lock
+.eslintcache
 
 yarn-error.log
+build
+.docusaurus
+.cache-loader
+types
+packages/docusaurus-utils/lib/
+packages/docusaurus/lib/
+packages/docusaurus-init/lib/
+packages/docusaurus-plugin-content-blog/lib/
+packages/docusaurus-plugin-content-docs/lib/
+packages/docusaurus-plugin-content-pages/lib/
+packages/docusaurus-plugin-sitemap/lib/
+packages/docusaurus-plugin-ideal-image/lib/

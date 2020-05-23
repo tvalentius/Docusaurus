@@ -20,7 +20,7 @@ Let's talk a bit more about what is done as part of the parsing stage. The resul
 
 #### Inline tokens
 
-Inline tokens are simple tokens that have text as a child. They are leaf nodes, and do not support having additional tokens within. An example of this might be `_emphasized text_`, which might be represented as a token of type `em` with contents of `emphasized text`.
+Inline tokens are tokens that have text as a child. They are leaf nodes, and do not support having additional tokens within. An example of this might be `_emphasized text_`, which might be represented as a token of type `em` with contents of `emphasized text`.
 
 #### Block tokens
 
@@ -36,7 +36,7 @@ The plain markdown text above would be parsed into three tokens:
 - `text`: Plain text token, with a value of "Hi there".
 - `heading_close`: Marks the end of the heading. In this case, it would also have a `hLevel: 3` prop.
 
-This is a basic example, because it contains a simple `text` token within the opening and closing tags. A common block encountered in markdown is the paragraph, which might be tokenized into a series of tokens such as `paragraph_open`, one or more `text` tokens, `link` tokens (if links are present within the text, for example), and, eventually, a `paragraph_close` token.
+This is a basic example, because it contains a `text` token within the opening and closing tags. A common block encountered in markdown is the paragraph, which might be tokenized into a series of tokens such as `paragraph_open`, one or more `text` tokens, `link` tokens (if links are present within the text, for example), and, eventually, a `paragraph_close` token.
 
 #### Core tokens
 
@@ -48,16 +48,16 @@ After we have parsed everything into tokens, we go to the rendering phase. This 
 
 ## Creating a Remarkable Extension
 
-Now that you have a better idea of how parsing/rendering works, we can proceed to create a simple extension that renders heading anchors. First we need to determine if we need to extend the parser, or the renderer. In this case, we're only interested in changing how a heading is rendered to HTML, so we'll just need to override the heading renderers.
+Now that you have a better idea of how parsing/rendering works, we can proceed to create an extension that renders heading anchors. First we need to determine if we need to extend the parser, or the renderer. In this case, we're only interested in changing how a heading is rendered to HTML, so we'll just need to override the heading renderers.
 
 The default heading renderers may look like this (you can refer to the Remarkable source code here):
 
 ```js
-md.renderer.rules.heading_open = function(tokens, idx /*, options, env */) {
+md.renderer.rules.heading_open = function (tokens, idx /*, options, env */) {
   return '<h' + tokens[idx].hLevel + '>';
 };
 
-md.renderer.rules.heading_close = function(tokens, idx /*, options, env */) {
+md.renderer.rules.heading_close = function (tokens, idx /*, options, env */) {
   return '</h' + tokens[idx].hLevel + '>\n';
 };
 ```
@@ -65,18 +65,35 @@ md.renderer.rules.heading_close = function(tokens, idx /*, options, env */) {
 That's pretty straightforward: whenever these tokens are found, we render a `<hN>` or `</hN>` HTML tag, where N is the `hLevel` for this heading. That would result in `<h3>Hi there</h3>` being output. But what we want is something closer to this:
 
 ```html
-<h3><a class="anchor" id="hi-there"></a>Hi there <a class="hash-link" href="#hi-there">#</a></h3>
+<h3>
+  <a class="anchor" id="hi-there"></a>Hi there
+  <a class="hash-link" href="#hi-there">#</a>
+</h3>
 ```
 
 In that case, we need to override our heading rules like so:
 
 ```js
-md.renderer.rules.heading_open = function(tokens, idx /*, options, env */) {
-  return '<h' + tokens[idx].hLevel + '>' + '<a class="anchor" id="' + toSlug(tokens[idx+1].content) + '"></a>';
+md.renderer.rules.heading_open = function (tokens, idx /*, options, env */) {
+  return (
+    '<h' +
+    tokens[idx].hLevel +
+    '>' +
+    '<a class="anchor" id="' +
+    toSlug(tokens[idx + 1].content) +
+    '"></a>'
+  );
 };
 
-md.renderer.rules.heading_close = function(tokens, idx /*, options, env */) {
-  return ' <a class="hash-link" href="#' + toSlug(tokens[idx-1].content) + '">#</a>' + '</h' + tokens[idx].hLevel + '>\n';
+md.renderer.rules.heading_close = function (tokens, idx /*, options, env */) {
+  return (
+    ' <a class="hash-link" href="#' +
+    toSlug(tokens[idx - 1].content) +
+    '">#</a>' +
+    '</h' +
+    tokens[idx].hLevel +
+    '>\n'
+  );
 };
 ```
 
@@ -88,12 +105,26 @@ We now need to tell Remarkable to use our extension. We can wrap our rules in a 
 
 ```js
 function anchors(md) {
-  md.renderer.rules.heading_open = function(tokens, idx /*, options, env */) {
-    return '<h' + tokens[idx].hLevel + '>' + '<a class="anchor" id="' + toSlug(tokens[idx+1].content) + '"></a>';
+  md.renderer.rules.heading_open = function (tokens, idx /*, options, env */) {
+    return (
+      '<h' +
+      tokens[idx].hLevel +
+      '>' +
+      '<a class="anchor" id="' +
+      toSlug(tokens[idx + 1].content) +
+      '"></a>'
+    );
   };
 
-  md.renderer.rules.heading_close = function(tokens, idx /*, options, env */) {
-    return ' <a class="hash-link" href="#' + toSlug(tokens[idx-1].content) + '">#</a>' + '</h' + tokens[idx].hLevel + '>\n';
+  md.renderer.rules.heading_close = function (tokens, idx /*, options, env */) {
+    return (
+      ' <a class="hash-link" href="#' +
+      toSlug(tokens[idx - 1].content) +
+      '">#</a>' +
+      '</h' +
+      tokens[idx].hLevel +
+      '>\n'
+    );
   };
 }
 ```

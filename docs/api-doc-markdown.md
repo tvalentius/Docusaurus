@@ -3,19 +3,19 @@ id: doc-markdown
 title: Markdown Features
 ---
 
+Docusaurus uses [GitHub Flavored Markdown (GFM)](https://guides.github.com/features/mastering-markdown/). Find out more about Docusaurus-specific fields when writing Markdown.
+
 ## Markdown Headers
 
 ### Documents
 
 Documents use the following markdown header fields that are enclosed by a line `---` on either side:
 
-`id`: A unique document id. If this field is not present, the document's `id` will default to its file name (without the extension).
-
-`title`: The title of your document. If this field is not present, the document's `title` will default to its `id`.
-
-`hide_title`: Whether to hide the title at the top of the doc.
-
-`sidebar_label`: The text shown in the document sidebar for this document. If this field is not present, the document's `sidebar_label` will default to its `title`.
+- `id`: A unique document id. If this field is not present, the document's `id` will default to its file name (without the extension).
+- `title`: The title of your document. If this field is not present, the document's `title` will default to its `id`.
+- `hide_title`: Whether to hide the title at the top of the doc.
+- `description`: The description of your document which will become the `<meta name="description" content="..."/>` and `<meta property="og:description" content="..."/>` in `<head>`, used by search engines. If this field is not present, it will default to the first line of the contents.
+- `sidebar_label`: The text shown in the document sidebar and in the next/previous button for this document. If this field is not present, the document's `sidebar_label` will default to its `title`.
 
 For example:
 
@@ -25,6 +25,7 @@ id: doc1
 title: My Document
 sidebar_label: Document
 ---
+
 ```
 
 Versioned documents have their ids altered to include the version number when they get copied. The new `id` is `version-${version}-${id}` where `${version}` is the version number of that document and `${id}` is the original `id`. Additionally, versioned documents get an added `original_id` field with the original document id.
@@ -38,9 +39,10 @@ title: My Document
 sidebar_label: Document
 original_id: doc1
 ---
+
 ```
 
-`custom_edit_url`: The url for editing this document. If this field is not present, the document's edit url will fallback to `editUrl` from optional fields of `siteConfig.js`. See [siteConfig.js](site-config.md) docs for more information.
+`custom_edit_url`: The URL for editing this document. If this field is not present, the document's edit URL will fall back to `editUrl` from optional fields of `siteConfig.js`. See [siteConfig.js](api-site-config.md) docs for more information.
 
 For example:
 
@@ -48,13 +50,14 @@ For example:
 ---
 id: doc-markdown
 title: Markdown Features
-custom_edit_url: https://github.com/facebook/Docusaurus/edit/master/docs/api-doc-markdown.md
+custom_edit_url: https://github.com/facebook/docusaurus/edit/master/docs/api-doc-markdown.md
 ---
+
 ```
 
 ### Blog Posts
 
-Blog Posts use the following markdown header fields that are enclosed by a line `---` on either side:
+Blog posts use the following markdown header fields that are enclosed by a line `---` on either side:
 
 `title`: The title of this blog post.
 
@@ -73,6 +76,7 @@ author: Frank Li
 authorURL: http://twitter.com/franchementli
 authorFBID: 100002976521003
 ---
+
 ```
 
 ## Extra Features
@@ -81,20 +85,21 @@ Docusaurus supports some extra features when writing documentation in markdown.
 
 ### Linking other Documents
 
-You can use relative urls to other documentation files which will automatically get converted to the corresponding html links when they get rendered.
+You can use relative URLs to other documentation files which will automatically get converted to the corresponding HTML links when they get rendered.
 
 Example:
 
 ```md
 [This links to another document](other-document.md)
 ```
+
 This markdown will automatically get converted into a link to `/docs/other-document.html` (or the appropriately translated/versioned link) once it gets rendered.
 
-This can help when you want to navigate through docs on GitHub since the links there will be functional links to other documents (still on GitHub), but the documents will have the correct html links when they get rendered.
+This can help when you want to navigate through docs on GitHub since the links there will be functional links to other documents (still on GitHub), but the documents will have the correct HTML links when they get rendered.
 
 ### Linking to Images and Other Assets
 
-Static assets can be linked to in the same way that documents are, using relative urls. Static assets used in documents and blogs should go into `docs/assets` and `website/blog/assets`, respectively. The markdown will get converted into correct link paths so that these paths will work for documents of all languages and versions.
+Static assets can be linked to in the same way that documents are, using relative URLs. Static assets used in documents and blogs should go into `docs/assets` and `website/blog/assets`, respectively. The markdown will get converted into correct link paths so that these paths will work for documents of all languages and versions.
 
 Example:
 
@@ -104,9 +109,9 @@ Example:
 
 ### Generating Table of Contents
 
-You can make an autogenerated list of links, which can be useful as a table of contents for API docs.
+You can make an auto-generated list of links, which can be useful as a table of contents for API docs.
 
-In your markdown file, insert a line with the text <`AUTOGENERATED_TABLE_OF_CONTENTS`>. Write your documentation using `h3` headers for each function inside a code block. These will be found by Docusaurus and a list of links to these sections will inserted at the text <`AUTOGENERATED_TABLE_OF_CONTENTS`>.
+In your markdown file, insert a line with the text <code>&lt;AUTOGENERATED_TABLE_OF_CONTENTS></code>. Write your documentation using `h3` headers for each function inside a code block. These will be found by Docusaurus and a list of links to these sections will be inserted at the text `<AUTOGENERATED_TABLE_OF_CONTENTS>`.
 
 Example:
 
@@ -129,24 +134,64 @@ will lead to a table of contents of the functions:
 
 and each function will link to their corresponding sections in the page.
 
+### Language-specific Code Tabs
+
+Display code in multiple programming languages using code tabs. First, mark the start and end of a code tabs group, by using `<!-- DOCUSAURUS_CODE_TABS -->` and `<!-- END_DOCUSAURUS_CODE_TABS -->` respectively in your markdown. Then start each tab with `<!--[TAB_TITLE]-->`.
+
+Adding the following code to your Markdown file:
+
+<script src="https://gist.github.com/yangshun/d36d04f383c40beb3f31dd2a16666f6c.js"></script>
+
+produces this:
+
+<!--DOCUSAURUS_CODE_TABS-->
+
+<!--JavaScript-->
+
+```js
+console.log('Hello, world!');
+```
+
+<!--Python-->
+
+```py
+print('Hello, world!')
+```
+
+<!--C-->
+
+```C
+#include <stdio.h>
+
+int main() {
+  printf("Hello World!");
+  return 0;
+}
+```
+
+<!--Pascal-->
+
+```Pascal
+program HelloWorld;
+begin
+  WriteLn('Hello, world!');
+end.
+```
+
+<!--END_DOCUSAURUS_CODE_TABS-->
+
 ## Syntax Highlighting
 
 Syntax highlighting is enabled by default on fenced code blocks. The language should be detected automatically, but you can sometimes get better results by specifying the language. You can do so using an [info string](https://github.github.com/gfm/#example-111), following the three opening backticks. The following JavaScript example...
 
     ```js
-    ReactDOM.render(
-      <h1>Hello, world!</h1>,
-      document.getElementById('root')
-    );
+    ReactDOM.render(<h1>Hello, world!</h1>, document.getElementById('root'));
     ```
 
 ...would be rendered with syntax highlighting like so:
 
 ```js
-ReactDOM.render(
-  <h1>Hello, world!</h1>,
-  document.getElementById('root')
-);
+ReactDOM.render(<h1>Hello, world!</h1>, document.getElementById('root'));
 ```
 
 Highlighting is provided by [Highlight.js](https://highlightjs.org) using the theme specified in your `siteConfig.js` file as part of the `highlight` key:
@@ -180,3 +225,36 @@ While Highlight.js provides support for [many popular languages out of the box](
   }
 }
 ```
+
+### Using Prism as additional syntax highlighter
+
+You can also opt to use Prism to syntax highlight certain languages available in the list [here](https://github.com/PrismJS/prism/tree/master/components). Include those languages in `usePrism` field in your [siteConfig.js](api-site-config.md)
+
+Example:
+
+```
+// siteConfig.js
+usePrism: ['jsx']
+```
+
+Notice that the code block below uses JSX syntax highlighting from Prism.
+
+```jsx
+class Example extends React.Component {
+  render() {
+    return (
+      <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+        <Text>Docusaurus</Text>
+        <Button
+          title="Click me"
+          onPress={() => this.props.navigation.push('Docusaurus')}
+        />
+      </View>
+    );
+  }
+}
+```
+
+### Adding Copy Code Buttons
+
+Docusaurus allows for adding buttons to copy the code within fenced code blocks. Please follow the instructions [here](https://gist.github.com/yangshun/55db997ed0f8f4e6527571fc3bee4675) to add "Copy" buttons to your code blocks.
